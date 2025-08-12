@@ -1,0 +1,39 @@
+# tools/migration-scripts/dms_setup.py
+import boto3
+import json
+
+class DMSMigrationSetup:
+    def __init__(self, migration_config):
+        self.dms_client = boto3.client('dms')
+        self.config = migration_config
+    
+    def create_replication_instance(self):
+        """Create DMS replication instance with partner-optimized settings"""
+        response = self.dms_client.create_replication_instance(
+            ReplicationInstanceIdentifier=self.config['instance_id'],
+            ReplicationInstanceClass='dms.r5.2xlarge',  # Partner-recommended sizing
+            VpcSecurityGroupIds=self.config['security_groups'],
+            MultiAZ=True,  # High availability requirement
+            PubliclyAccessible=False,  # Security best practice
+            Tags=[
+                {'Key': 'Project', 'Value': 'Database Migration Accelerator'},
+                {'Key': 'Partner', 'Value': self.config['partner_name']},
+                {'Key': 'Customer', 'Value': self.config['customer_name']}
+            ]
+        )
+        return response
+    
+    def create_migration_task(self, source_endpoint, target_endpoint):
+        """Create migration task with industry-specific table mappings"""
+        table_mappings = self.generate_table_mappings()
+        
+        response = self.dms_client.create_replication_task(
+            ReplicationTaskIdentifier=self.config['task_id'],
+            SourceEndpointArn=source_endpoint['EndpointArn'],
+            TargetEndpointArn=target_endpoint['EndpointArn'],
+            ReplicationInstanceArn=self.config['replication_instance_arn'],
+            MigrationType='full-load-and-cdc',  # Partner best practice
+            TableMappings=json.dumps(table_mappings),
+            ReplicationTaskSettings=json.dumps(self.get_optimized_settings())
+        )
+        return response
