@@ -1,0 +1,34 @@
+# tools/assessment/db_discovery.py
+import boto3
+import pymongo
+import cx_Oracle
+from assessment_framework import DatabaseAssessment
+
+class EnterpriseDBAssessment:
+    def __init__(self, customer_config):
+        self.config = customer_config
+        self.assessment_report = {}
+    
+    def discover_databases(self):
+        """Automated discovery of enterprise database landscape"""
+        discovered_dbs = []
+        
+        # Oracle Discovery
+        oracle_instances = self.scan_oracle_infrastructure()
+        discovered_dbs.extend(oracle_instances)
+        
+        # SQL Server Discovery  
+        sqlserver_instances = self.scan_sqlserver_infrastructure()
+        discovered_dbs.extend(sqlserver_instances)
+        
+        return self.generate_migration_matrix(discovered_dbs)
+    
+    def calculate_migration_complexity(self, db_instance):
+        """Partner-validated complexity scoring"""
+        complexity_factors = {
+            'data_size': self.assess_data_volume(db_instance),
+            'schema_complexity': self.analyze_schema_patterns(db_instance),
+            'integration_points': self.map_dependencies(db_instance),
+            'compliance_requirements': self.check_regulatory_needs(db_instance)
+        }
+        return complexity_factors
