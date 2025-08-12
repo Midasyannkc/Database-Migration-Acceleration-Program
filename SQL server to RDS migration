@@ -1,0 +1,21 @@
+# docs/playbooks/sqlserver-to-rds-playbook.yml
+migration_type: "SQL Server to RDS SQL Server"
+partner_delivery: "Deloitte Cloud Migration Center"
+timeline: "6 weeks"
+
+industry_specific_considerations:
+  retail:
+    - "Peak season capacity planning"
+    - "PCI compliance validation"
+    - "Multi-region disaster recovery"
+  
+  manufacturing:
+    - "ERP system integration testing"
+    - "Supply chain data validation"
+    - "Minimal production downtime requirements"
+
+automation_tools:
+  - "AWS Database Migration Service (DMS)"
+  - "Partner-developed data validation scripts"
+  - "Automated performance benchmarking"
+  - "Custom monitoring dashboards"
