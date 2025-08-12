@@ -1,0 +1,24 @@
+# tools/roi-calculator/migration_roi.py
+class MigrationROICalculator:
+    def __init__(self, industry_vertical):
+        self.industry = industry_vertical
+        self.cost_models = self.load_industry_benchmarks()
+    
+    def calculate_savings(self, current_infrastructure, target_aws_config):
+        """Calculate 3-year TCO comparison with industry-specific metrics"""
+        
+        current_costs = {
+            'infrastructure': self.calculate_on_prem_costs(current_infrastructure),
+            'licensing': self.calculate_license_costs(current_infrastructure),
+            'operations': self.calculate_ops_costs(current_infrastructure),
+            'downtime_risk': self.calculate_risk_costs(current_infrastructure)
+        }
+        
+        aws_costs = {
+            'rds_aurora': self.calculate_aws_db_costs(target_aws_config),
+            'backup_dr': self.calculate_aws_backup_costs(target_aws_config),
+            'monitoring': self.calculate_aws_ops_costs(target_aws_config),
+            'migration_investment': self.calculate_migration_costs()
+        }
+        
+        return self.generate_roi_report(current_costs, aws_costs)
