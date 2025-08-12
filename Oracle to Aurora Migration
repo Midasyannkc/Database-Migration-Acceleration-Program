@@ -1,0 +1,34 @@
+# docs/playbooks/oracle-to-aurora-playbook.yml
+migration_type: "Oracle to Aurora PostgreSQL"
+partner_delivery: "Accenture Migration Factory"
+timeline: "8 weeks (down from 18 months)"
+
+phases:
+  assessment:
+    duration: "2 weeks"
+    deliverables:
+      - "Schema Conversion Assessment (AWS SCT)"
+      - "Performance Baseline Report"
+      - "Dependency Mapping"
+      - "Risk Assessment Matrix"
+    
+  pilot_migration:
+    duration: "3 weeks"
+    scope: "Non-production workloads"
+    validation_criteria:
+      - "Performance within 10% of baseline"
+      - "All automated tests pass"
+      - "Partner sign-off on migration process"
+    
+  production_migration:
+    duration: "3 weeks"
+    risk_mitigation:
+      - "Blue/green deployment strategy"
+      - "Real-time replication validation"
+      - "Automated rollback procedures"
+      - "24/7 partner support coverage"
+
+success_metrics:
+  performance: "15% improvement in query response time"
+  cost_reduction: "42% infrastructure cost savings"
+  availability: "99.99% uptime maintained"
