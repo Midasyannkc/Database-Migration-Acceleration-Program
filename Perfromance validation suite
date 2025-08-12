@@ -1,0 +1,41 @@
+# tools/validation/performance_validator.py
+class MigrationValidator:
+    def __init__(self, source_db, target_db):
+        self.source = source_db
+        self.target = target_db
+        self.validation_results = {}
+    
+    def validate_data_integrity(self):
+        """Partner-validated data integrity checks"""
+        queries = self.load_validation_queries()
+        
+        for query_name, query_sql in queries.items():
+            source_result = self.execute_query(self.source, query_sql)
+            target_result = self.execute_query(self.target, query_sql)
+            
+            self.validation_results[query_name] = {
+                'source_count': source_result['count'],
+                'target_count': target_result['count'],
+                'integrity_check': source_result['count'] == target_result['count'],
+                'checksum_match': source_result['checksum'] == target_result['checksum']
+            }
+    
+    def performance_benchmarking(self):
+        """Industry-specific performance validation"""
+        benchmark_queries = self.load_industry_benchmarks(self.config['industry'])
+        
+        performance_results = {}
+        for query_name, query_config in benchmark_queries.items():
+            source_performance = self.measure_query_performance(self.source, query_config)
+            target_performance = self.measure_query_performance(self.target, query_config)
+            
+            performance_results[query_name] = {
+                'source_avg_time': source_performance['avg_execution_time'],
+                'target_avg_time': target_performance['avg_execution_time'],
+                'performance_improvement': self.calculate_improvement_percentage(
+                    source_performance, target_performance
+                ),
+                'meets_sla': target_performance['avg_execution_time'] <= query_config['sla_threshold']
+            }
+        
+        return performance_results
