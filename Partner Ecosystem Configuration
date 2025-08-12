@@ -1,0 +1,32 @@
+# docs/partner-resources/ecosystem-config.yml
+partners:
+  accenture:
+    services:
+      - "Migration Factory Delivery"
+      - "Schema Conversion Automation"
+      - "24/7 Migration Support"
+    tools:
+      - "Accenture myWizard Platform Integration"
+      - "Custom DMS Monitoring Dashboards"
+    sla_commitments:
+      - "Zero production outage guarantee"
+      - "Performance SLA within 10% of baseline"
+  
+  deloitte:
+    services:
+      - "Cloud Migration Center of Excellence"
+      - "Industry-specific Migration Patterns"
+      - "Post-migration Optimization"
+    tools:
+      - "Deloitte Cloud Migration Accelerator"
+      - "Automated Testing Frameworks"
+    
+  cognizant:
+    services:
+      - "Database Modernization Advisory"
+      - "Application Refactoring Services"
+      - "Managed Database Services"
+    industry_expertise:
+      - "Manufacturing ERP Integrations"
+      - "Retail Seasonal Scaling"
+      - "Automotive Supply Chain Systems"
